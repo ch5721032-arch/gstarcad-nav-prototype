@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GstarCAD Official Website &mdash; Navigation Redesign Prototype v2</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter','Microsoft YaHei',sans-serif;background:#ffffff;color:#16233f;overflow-x:hidden;}
+
+.top-bar{background:#ffffff;border-bottom:1px solid #e6edf8;padding:6px 40px;display:flex;justify-content:space-between;font-size:12px;color:#8a9bb8;}
+.top-bar a{color:#8a9bb8;text-decoration:none;margin-left:16px;}
+.top-bar a:hover{color:#2563eb;}
+
+header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,0.9);backdrop-filter:blur(24px);border-bottom:1px solid #e6edf8;}
+.header-inner{max-width:1400px;margin:0 auto;padding:0 40px;display:flex;align-items:center;height:68px;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:40px;}
+.logo-icon{width:34px;height:34px;background:linear-gradient(135deg,#2563eb,#3b82f6);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;box-shadow:0 4px 12px rgba(37,99,235,0.25);}
+.logo-text{font-size:20px;font-weight:800;color:#16233f;letter-spacing:-0.5px;}
+.logo-text span{background:linear-gradient(135deg,#2563eb,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+nav{display:flex;align-items:center;flex:1;}
+.nav-list{display:flex;list-style:none;height:68px;}
+.nav-item{position:relative;}
+.nav-item>a{display:flex;align-items:center;height:68px;padding:0 14px;text-decoration:none;color:#4a5b7a;font-size:14px;font-weight:500;transition:all 0.2s;white-space:nowrap;letter-spacing:0.3px;}
+.nav-item>a:hover{color:#2563eb;}
+.nav-item>a .arrow{margin-left:4px;font-size:9px;opacity:0.5;}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:12px;}
+.btn-trial{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;padding:9px 22px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;transition:all 0.25s;box-shadow:0 4px 20px rgba(37,99,235,0.25);}
+.btn-trial:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,99,235,0.35);}
+.btn-signin{color:#64748b;text-decoration:none;font-size:13px;padding:8px 12px;}
+.btn-signin:hover{color:#2563eb;}
+.lang{color:#64748b;font-size:13px;cursor:pointer;padding:8px;border-left:1px solid #e6edf8;margin-left:8px;}
+.lang:hover{color:#2563eb;}
+
+.mega{display:none;position:absolute;top:68px;left:-40px;background:rgba(255,255,255,0.98);backdrop-filter:blur(32px);border:1px solid #e6edf8;border-radius:16px;padding:28px;min-width:920px;box-shadow:0 32px 80px rgba(30,64,175,0.12);}
+.nav-item:hover .mega{display:flex;gap:32px;}
+.mega-col{flex:1;}
+.mega-col h4{font-size:10px;text-transform:uppercase;color:#9aaac5;letter-spacing:1.5px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #eef3fb;}
+.mega-col a{display:block;padding:8px 0;text-decoration:none;color:#4a5b7a;font-size:14px;transition:all 0.15s;}
+.mega-col a:hover{color:#2563eb;padding-left:4px;}
+.mega-col a small{display:block;font-size:11px;color:#9aaac5;font-weight:normal;}
+.mega-col .flagship{font-weight:600;font-size:15px;color:#16233f;}
+.mega-col .view-all{margin-top:8px;color:#2563eb;font-weight:600;}
+.mega-col hr{border:none;border-top:1px solid #eef3fb;margin:12px 0;}
+
+.dropdown{display:none;position:absolute;top:68px;left:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(32px);border:1px solid #e6edf8;border-radius:12px;padding:8px 0;min-width:200px;box-shadow:0 32px 80px rgba(30,64,175,0.12);}
+.nav-item:hover .dropdown{display:block;}
+.dropdown a{display:block;padding:10px 20px;text-decoration:none;color:#4a5b7a;font-size:13px;}
+.dropdown a:hover{background:#f0f6ff;color:#2563eb;}
+
+/* Hero */
+.hero{min-height:90vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:0 40px;background:linear-gradient(180deg,#eef5ff 0%,#ffffff 100%);}
+.hero-bg{position:absolute;inset:0;z-index:0;}
+.hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(37,99,235,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,0.05) 1px,transparent 1px);background-size:60px 60px;}
+.hero-glow-1{position:absolute;top:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(59,130,246,0.12),transparent 70%);border-radius:50%;filter:blur(60px);}
+.hero-glow-2{position:absolute;bottom:-10%;left:-5%;width:400px;height:400px;background:radial-gradient(circle,rgba(37,99,235,0.08),transparent 70%);border-radius:50%;filter:blur(60px);}
+.hero-inner{max-width:1400px;margin:0 auto;position:relative;z-index:1;display:flex;align-items:center;gap:60px;width:100%;}
+.hero-text{flex:1.2;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:#e8f1ff;border:1px solid #c9ddff;padding:6px 16px;border-radius:100px;font-size:12px;color:#2563eb;margin-bottom:24px;}
+.hero h1{font-size:clamp(36px,5vw,64px);font-weight:900;line-height:1.1;letter-spacing:-1px;margin-bottom:20px;color:#0f1f3d;}
+.hero h1 .gradient-text{background:linear-gradient(135deg,#1d4ed8,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{font-size:17px;color:#5a6b8a;line-height:1.8;margin-bottom:32px;max-width:520px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.hero-btn-primary{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:600;font-size:15px;transition:all 0.25s;box-shadow:0 4px 30px rgba(37,99,235,0.3);display:inline-flex;align-items:center;gap:8px;}
+.hero-btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(37,99,235,0.4);}
+.hero-btn-secondary{background:#ffffff;border:1px solid #c9ddff;color:#2563eb;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:500;font-size:15px;transition:all 0.25s;display:inline-flex;align-items:center;gap:8px;}
+.hero-btn-secondary:hover{background:#f0f6ff;border-color:#93b8ff;}
+.hero-stats{display:flex;gap:40px;margin-top:40px;}
+.hero-stat-num{font-size:28px;font-weight:800;background:linear-gradient(135deg,#1d4ed8,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-stat-label{font-size:13px;color:#7c8db0;margin-top:2px;}
+.hero-visual{flex:1;}
+.hero-visual-box{position:relative;width:100%;aspect-ratio:4/3;border-radius:20px;background:linear-gradient(135deg,#e8f1ff,#ffffff);border:1px solid #dbe7fb;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 20px 60px rgba(30,64,175,0.08);}
+.hero-visual-box .corner{position:absolute;width:40px;height:40px;border-color:rgba(37,99,235,0.35);border-style:solid;}
+.hero-visual-box .corner.tl{top:20px;left:20px;border-width:2px 0 0 2px;}
+.hero-visual-box .corner.tr{top:20px;right:20px;border-width:2px 2px 0 0;}
+.hero-visual-box .corner.bl{bottom:20px;left:20px;border-width:0 0 2px 2px;}
+.hero-visual-box .corner.br{bottom:20px;right:20px;border-width:0 2px 2px 0;}
+.hero-visual-placeholder{text-align:center;color:#a9b9d4;font-size:14px;letter-spacing:1px;}
+.hero-visual-placeholder .big{font-size:48px;margin-bottom:12px;display:block;opacity:0.4;}
+
+.section{padding:100px 0;position:relative;}
+.section-inner{max-width:1400px;margin:0 auto;padding:0 40px;position:relative;z-index:1;}
+.section-header{margin-bottom:56px;}
+.section-tag{display:inline-flex;align-items:center;gap:6px;background:#e8f1ff;border:1px solid #c9ddff;padding:5px 14px;border-radius:100px;font-size:11px;font-weight:600;color:#2563eb;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;}
+.section-header h2{font-size:clamp(28px,3.5vw,44px);font-weight:800;letter-spacing:-0.5px;line-height:1.2;color:#0f1f3d;}
+.section-header p{font-size:16px;color:#7c8db0;margin-top:12px;max-width:480px;}
+.header-center{text-align:center;}
+.header-center p{margin:12px auto 0;}
+.bg-dark{background:#ffffff;}
+.bg-darker{background:#f4f8fe;}
+.bg-deep{background:#ffffff;}
+.bg-gradient-accent{background:linear-gradient(180deg,#ffffff 0%,#f2f7fd 100%);}
+
+.products-showcase{display:flex;flex-direction:column;gap:20px;}
+.product-row{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:20px;}
+.product-row-secondary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}
+.product-block{position:relative;border-radius:16px;padding:36px;border:1px solid #e3ecfa;background:#ffffff;box-shadow:0 2px 12px rgba(30,64,175,0.04);transition:all 0.3s;overflow:hidden;cursor:pointer;}
+.product-block:hover{border-color:#93b8ff;background:#f7fbff;transform:translateY(-4px);box-shadow:0 12px 32px rgba(30,64,175,0.1);}
+.product-block.featured{background:linear-gradient(135deg,#eef5ff,#ffffff);border-color:#c9ddff;grid-column:1;}
+.product-block .glow{position:absolute;top:-50%;right:-30%;width:200px;height:200px;background:radial-gradient(circle,rgba(59,130,246,0.1),transparent);border-radius:50%;pointer-events:none;}
+.product-block-icon{font-size:32px;margin-bottom:16px;}
+.product-block-badge{display:inline-block;background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;font-size:10px;padding:2px 10px;border-radius:100px;font-weight:600;margin-bottom:10px;}
+.product-block h3{font-size:18px;font-weight:700;color:#16233f;margin-bottom:8px;}
+.product-block p{font-size:13px;color:#64748b;line-height:1.6;}
+.product-block .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+.product-block .tags span{background:#f4f8fe;border:1px solid #e3ecfa;padding:3px 10px;border-radius:4px;font-size:11px;color:#7c8db0;}
+.product-block-link{display:inline-block;margin-top:14px;color:#2563eb;font-size:13px;font-weight:500;text-decoration:none;}
+.product-block-link:hover{text-decoration:underline;}
+
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#e3ecfa;border-radius:16px;overflow:hidden;border:1px solid #e3ecfa;}
+.value-item{padding:40px 36px;background:#ffffff;transition:all 0.3s;position:relative;}
+.value-item:hover{background:#f7fbff;}
+.value-item-icon{font-size:28px;margin-bottom:14px;}
+.value-item h3{font-size:16px;font-weight:700;color:#16233f;margin-bottom:8px;}
+.value-item p{font-size:13px;color:#64748b;line-height:1.7;}
+.value-item .hover-line{position:absolute;top:0;left:0;width:0;height:2px;background:linear-gradient(135deg,#2563eb,#3b82f6);transition:width 0.4s;}
+.value-item:hover .hover-line{width:100%;}
+
+.scenarios-track{display:flex;gap:16px;overflow-x:auto;padding-bottom:16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+.scenarios-track::-webkit-scrollbar{height:4px;}
+.scenarios-track::-webkit-scrollbar-thumb{background:#c9ddff;border-radius:4px;}
+.scenario-chip{flex-shrink:0;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;gap:14px;padding:36px 32px;border-radius:16px;border:1px solid #e3ecfa;background:#ffffff;min-width:180px;transition:all 0.3s;cursor:pointer;}
+.scenario-chip:hover{border-color:#93b8ff;background:#f7fbff;transform:translateY(-4px);}
+.scenario-chip-icon{font-size:36px;}
+.scenario-chip span{font-size:14px;font-weight:600;color:#16233f;white-space:nowrap;}
+.scenario-chip small{font-size:11px;color:#8a9bb8;text-align:center;}
+
+.advantages-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.advantage-block{position:relative;padding:40px 32px;border-radius:16px;border:1px solid #e3ecfa;background:#ffffff;overflow:hidden;transition:all 0.3s;}
+.advantage-block:hover{border-color:#93b8ff;transform:translateY(-4px);box-shadow:0 12px 32px rgba(30,64,175,0.08);}
+.advantage-block .num{font-size:56px;font-weight:900;background:linear-gradient(135deg,#3b82f6,#93b8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:16px;}
+.advantage-block h3{font-size:17px;font-weight:700;color:#16233f;margin-bottom:10px;}
+.advantage-block p{font-size:13px;color:#64748b;line-height:1.7;}
+
+.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.case-block{border-radius:16px;border:1px solid #e3ecfa;background:#ffffff;overflow:hidden;transition:all 0.3s;box-shadow:0 2px 12px rgba(30,64,175,0.04);}
+.case-block:hover{border-color:#93b8ff;transform:translateY(-4px);box-shadow:0 12px 32px rgba(30,64,175,0.08);}
+.case-block-top{padding:24px 28px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #eef3fb;}
+.case-block-avatar{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.case-block-top h4{font-size:14px;font-weight:600;color:#16233f;}
+.case-block-top span{font-size:11px;color:#8a9bb8;}
+.case-block-body{padding:20px 28px;}
+.case-block-body p{font-size:13px;color:#64748b;line-height:1.8;font-style:italic;}
+.case-block-stats{padding:16px 28px;border-top:1px solid #eef3fb;display:flex;gap:24px;}
+.case-block-stats strong{display:block;font-size:18px;font-weight:800;background:linear-gradient(135deg,#2563eb,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.case-block-stats span{font-size:11px;color:#8a9bb8;}
+
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.review-block{padding:32px;border-radius:16px;border:1px solid #e3ecfa;background:#ffffff;box-shadow:0 2px 12px rgba(30,64,175,0.04);transition:all 0.3s;}
+.review-block:hover{border-color:#93b8ff;transform:translateY(-4px);box-shadow:0 12px 32px rgba(30,64,175,0.08);}
+.review-block-stars{color:#f59e0b;font-size:14px;margin-bottom:14px;letter-spacing:2px;}
+.review-block-text{font-size:14px;color:#64748b;line-height:1.8;margin-bottom:20px;}
+.review-block-author{display:flex;align-items:center;gap:12px;}
+.review-block-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#e8f1ff,#dbe9ff);display:flex;align-items:center;justify-content:center;font-size:16px;}
+.review-block-author strong{display:block;font-size:13px;color:#16233f;}
+.review-block-author small{font-size:11px;color:#8a9bb8;}
+
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.news-block{border-radius:16px;border:1px solid #e3ecfa;background:#ffffff;overflow:hidden;transition:all 0.3s;box-shadow:0 2px 12px rgba(30,64,175,0.04);}
+.news-block:hover{border-color:#93b8ff;transform:translateY(-4px);box-shadow:0 12px 32px rgba(30,64,175,0.08);}
+.news-block-img{height:160px;background:linear-gradient(135deg,#eef5ff,#e3ecfa);display:flex;align-items:center;justify-content:center;font-size:32px;border-bottom:1px solid #eef3fb;}
+.news-block-body{padding:20px 24px 24px;}
+.news-block-meta{display:flex;gap:10px;align-items:center;margin-bottom:8px;}
+.news-block-cat{font-size:10px;color:#2563eb;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.news-block-date{font-size:11px;color:#8a9bb8;}
+.news-block h3{font-size:15px;font-weight:700;color:#16233f;margin-bottom:6px;}
+.news-block p{font-size:13px;color:#64748b;line-height:1.6;margin-bottom:12px;}
+.news-block a{color:#2563eb;font-size:13px;font-weight:500;text-decoration:none;}
+.news-block a:hover{text-decoration:underline;}
+
+.cta-strip{padding:80px 0;background:linear-gradient(135deg,#1d4ed8,#3b82f6);border-top:1px solid #2563eb;border-bottom:1px solid #2563eb;text-align:center;}
+.cta-strip h2{font-size:clamp(24px,3vw,38px);font-weight:800;margin-bottom:12px;color:#ffffff;}
+.cta-strip .g-text{background:linear-gradient(135deg,#ffffff,#bfdbfe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.cta-strip p{color:rgba(255,255,255,0.85);font-size:16px;margin-bottom:28px;}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.cta-strip .hero-btn-primary{background:#ffffff;color:#1d4ed8;box-shadow:0 8px 30px rgba(10,30,80,0.25);}
+.cta-strip .hero-btn-primary:hover{box-shadow:0 12px 40px rgba(10,30,80,0.35);}
+.cta-strip .hero-btn-secondary{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.4);color:#ffffff;}
+.cta-strip .hero-btn-secondary:hover{background:rgba(255,255,255,0.22);border-color:rgba(255,255,255,0.6);}
+
+.footer{padding:80px 0 0;border-top:1px solid #16294f;background:#0b1c3d;}
+.footer-inner{max-width:1400px;margin:0 auto;padding:0 40px;}
+.footer-cols{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;}
+.footer-col h4{font-size:13px;font-weight:600;color:#ffffff;margin-bottom:20px;text-transform:uppercase;letter-spacing:1px;}
+.footer-col a{display:block;color:#9fb1d6;text-decoration:none;font-size:13px;padding:5px 0;transition:all 0.2s;}
+.footer-col a:hover{color:#ffffff;padding-left:4px;}
+.footer-brand h3{font-size:20px;font-weight:800;color:#ffffff;margin-bottom:12px;}
+.footer-brand h3 span{background:linear-gradient(135deg,#3b82f6,#7db3ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.footer-brand p{font-size:13px;color:#8fa3c9;line-height:1.8;margin-bottom:20px;}
+.footer-social{display:flex;gap:12px;}
+.footer-social a{width:38px;height:38px;border-radius:10px;border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:14px;color:#9fb1d6;text-decoration:none;transition:all 0.2s;}
+.footer-social a:hover{border-color:#3b82f6;color:#ffffff;background:rgba(59,130,246,0.15);}
+.footer-bottom{border-top:1px solid #16294f;padding:24px 0;text-align:center;}
+.footer-bottom p{font-size:12px;color:#7c90b8;}
+
+@media(max-width:1024px){.advantages-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:768px){
+.product-row,.product-row-secondary,.values-grid,.advantages-grid,.cases-grid,.reviews-grid,.news-grid{grid-template-columns:1fr;}
+.footer-cols{grid-template-columns:1fr 1fr;}
+.hero-inner{flex-direction:column;}
+.hero{padding:0 20px;min-height:auto;padding-top:40px;padding-bottom:60px;}
+.section{padding:60px 0;}
+.section-inner,.footer-inner{padding:0 20px;}
+}
+.g-text{background:linear-gradient(135deg,#2563eb,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+</style>
+</head>
+<body><!-- Top Bar -->
+<div class="top-bar"><span>Official Website of GstarCAD &mdash; Professional CAD Software Since 2009</span><div><a href="#">Support Center</a><a href="#">Contact Sales</a></div></div>
+
+<!-- Header -->
+<header><div class="header-inner">
+<a href="#" class="logo"><div class="logo-icon">GC</div><div class="logo-text">Gstar<span>CAD</span></div></a>
+<nav><ul class="nav-list">
+<li class="nav-item"><a href="https://www.gstarcad.net/">Home</a></li>
+<li class="nav-item"><a href="#">Products <span class="arrow">&#9660;</span></a>
+<div class="mega">
+<div class="mega-col"><h4>2D CAD</h4><a href="/cad/" class="flagship">GstarCAD <small>Professional 2D/3D CAD, DWG-Compatible</small></a><h4 style="margin-top:22px;">BIM &amp; 3D CAD</h4><a href="#">GstarBIM <small>BIM Modeling Suite</small></a><a href="#">Houseplan 2.0 <small>Rapid Floor Plan Design</small></a></div>
+<div class="mega-col"><h4>Cloud &amp; Collaboration</h4><a href="#">GstarCAD 365 <small>Web/Mobile CAD</small></a><a href="#">GstarCAD Cloud <small>Cloud-based CAD Tools</small></a><h4 style="margin-top:22px;">AI</h4><a href="#">GstarRender <small>AI-Powered Rendering</small></a></div>
+<div class="mega-col"><h4>Industry Solutions</h4><a href="/mechanical/">GstarCAD Mechanical</a><a href="/architecture/">GstarCAD Architecture</a><a href="/cad-point-cloud/">GstarCAD Point Cloud</a><a href="/application/" class="view-all">More Applications</a><h4 style="margin-top:22px;">Mobile &amp; Viewer</h4><a href="#">DWG FastView <small>Mobile DWG Viewer</small></a><a href="#">DWG FastView Plus <small>Mobile DWG Editor</small></a><a href="#">3D FastView <small>3D Model Viewer</small></a></div>
+</div></li>
+<li class="nav-item"><a href="https://blog.gstarcad.net">Blog</a></li>
+<li class="nav-item"><a href="#">Support <span class="arrow">&#9660;</span></a><div class="dropdown"><a href="#">Installation &amp; Activation</a><a href="#">User Guide</a><a href="#">Video Library</a><a href="#">Tips &amp; Tricks</a><a href="#">Special</a><a href="#">Article</a></div></li>
+<li class="nav-item"><a href="/application/">Application</a></li>
+<li class="nav-item"><a href="#">Download</a></li>
+<li class="nav-item"><a href="#">Partner <span class="arrow">&#9660;</span></a><div class="dropdown"><a href="#">Developer</a><a href="#">Find a Reseller</a><a href="#">Partner Center</a></div></li>
+<li class="nav-item"><a href="https://www.gstarcad.net/Eshop/">Buy</a></li>
+</ul></nav>
+<div class="nav-right"><a href="#" class="btn-trial">Free Trial</a><a href="#" class="btn-signin">Sign In</a><div class="lang">EN</div></div></div></header>
+
+<!-- Hero -->
+<section class="hero">
+<div class="hero-bg"><div class="hero-bg-grid"></div><div class="hero-glow-1"></div><div class="hero-glow-2"></div></div>
+<div class="hero-inner">
+<div class="hero-text">
+<div class="hero-badge"><span>&#10022;</span> GstarCAD 2026 Now Available</div>
+<h1>Engineered for<br><span class="gradient-text">the Next Generation</span><br>of CAD</h1>
+<p>100% DWG-compatible. Blazing-fast performance. Trusted by 500,000+ engineers and designers across 90+ countries.</p>
+<div class="hero-btns"><a href="#" class="hero-btn-primary">Download Free Trial &rarr;</a><a href="#" class="hero-btn-secondary">View Pricing</a></div>
+<div class="hero-stats"><div class="hero-stat"><div class="hero-stat-num">500K+</div><div class="hero-stat-label">Users Worldwide</div></div><div class="hero-stat"><div class="hero-stat-num">90+</div><div class="hero-stat-label">Countries</div></div><div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-label">DWG Compatible</div></div></div></div>
+<div class="hero-visual"><div class="hero-visual-box"><div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+<div class="hero-visual-placeholder"><span class="big">&#8862;</span> GstarCAD Interface</div></div></div></div></section>
+
+<!-- 1. Products -->
+<section class="section bg-deep"><div class="section-inner">
+<div class="section-header"><div class="section-tag"><span>&#10022;</span> Products</div><h2>Explore Our <span class="g-text">Product Lineup</span></h2><p>From flagship CAD to specialized tools &mdash; one ecosystem for every workflow.</p></div>
+<div class="products-showcase">
+<div class="product-row-secondary">
+<div class="product-block featured"><div class="glow"></div><div class="product-block-badge">Flagship</div><div class="product-block-icon">&#127919;</div><h3>GstarCAD 2026</h3><p>Professional 2D &amp; 3D CAD software with 100% DWG compatibility, advanced 3D modeling, full LISP/VBA/API support.</p><div class="tags"><span>2D Drafting</span><span>3D Modeling</span><span>DWG Compatible</span><span>API</span></div><a href="/cad/" class="product-block-link">Learn more &rarr;</a></div>
+<div class="product-block"><div class="product-block-icon">&#128739;</div><h3>GstarBIM</h3><p>Complete BIM workflow &mdash; architectural modeling, structural design, and collaborative documentation.</p><div class="tags"><span>BIM</span><span>3D Modeling</span><span>Collaboration</span></div><a href="#" class="product-block-link">Learn more &rarr;</a></div>
+<div class="product-block"><div class="product-block-icon">&#127912;</div><h3>GstarRender</h3><p>AI-powered rendering that turns CAD models into photorealistic visuals in minutes &mdash; no render farms needed.</p><div class="tags"><span>AI</span><span>Photorealistic</span></div><a href="#" class="product-block-link">Learn more &rarr;</a></div></div>
+</div></section>
+
+<!-- 2. Value -->
+<section class="section bg-darker"><div class="section-inner">
+<div class="section-header header-center"><div class="section-tag"><span>&#10022;</span> Why GstarCAD</div><h2>The <span class="g-text">Value</span> We Deliver</h2><p>Six pillars that make GstarCAD the smart choice for engineering teams worldwide.</p></div>
+<div class="values-grid">
+<div class="value-item"><div class="hover-line"></div><div class="value-item-icon">&#128176;</div><h3>60-80% Cost Savings</h3><p>Permanent license model &mdash; pay once, own forever. No annual subscription fees. Enterprise CAD at fraction of cost.</p></div>
+<div class="value-item"><div class="hover-line"></div><div class="value-item-icon">&#128260;</div><h3>Seamless DWG Compatibility</h3><p>Native DWG/DXF/DWF support. Open, edit, save directly &mdash; no conversion needed. Zero friction with existing workflows.</p></div>
+<div class="value-item"><div class="hover-line"></div><div class="value-item-icon">&#128640;</div><h3>40% Faster Performance</h3><p>Optimized kernel engine delivers snappy response, faster load for large drawings, smooth handling of complex assemblies.</p></div>
+<div class="value-item"><div class="hover-line"></div><div class="value-item-icon">&#129527;</div><h3>Rich Ecosystem</h3><p>Supports LISP, VBA, ARX, .NET &mdash; run thousands of AutoCAD plugins with minimal modification.</p></div>
+<div class="value-item"><div class="hover-line"></div><div class="value-item-icon">&#127758;</div><h3>Global + Local Support</h3><p>90+ countries, 12 languages, dedicated Chinese support team 7x12 hours. Local expertise, global standards.</p></div>
+<div class="value-item"><div class="hover-line"></div><div class="value-item-icon">&#128274;</div><h3>Security &amp; Compliance</h3><p>Independently developed, IP-secure. Meets national cybersecurity standards. Trusted by government sectors.</p></div></div></div></section>
+
+<!-- 3. Scenarios -->
+<section class="section bg-deep"><div class="section-inner">
+<div class="section-header header-center"><div class="section-tag"><span>&#10022;</span> Industries</div><h2>Built for <span class="g-text">Every Discipline</span></h2><p>From skyscrapers to microchips &mdash; GstarCAD powers the world's design work.</p></div>
+<div class="scenarios-track">
+<div class="scenario-chip"><div class="scenario-chip-icon">&#127961;</div><span>Architecture</span><small>Building design, blueprints, BIM</small></div>
+<div class="scenario-chip"><div class="scenario-chip-icon">&#9881;</div><span>Manufacturing</span><small>Part design, assemblies, NC</small></div>
+<div class="scenario-chip"><div class="scenario-chip-icon">&#127734;</div><span>Civil Engineering</span><small>Roads, bridges, pipelines</small></div>
+<div class="scenario-chip"><div class="scenario-chip-icon">&#128161;</div><span>Electrical</span><small>Schematics, wiring, controls</small></div>
+<div class="scenario-chip"><div class="scenario-chip-icon">&#127981;</div><span>Interior Design</span><small>Layouts, furniture, lighting</small></div>
+<div class="scenario-chip"><div class="scenario-chip-icon">&#127758;</div><span>GIS &amp; Mapping</span><small>Geospatial, cadastral</small></div>
+<div class="scenario-chip"><div class="scenario-chip-icon">&#128674;</div><span>Shipbuilding</span><small>Hull, piping, structural</small></div>
+<div class="scenario-chip"><div class="scenario-chip-icon">&#128295;</div><span>Tooling &amp; Mold</span><small>Die design, fixtures</small></div></div></div></section>
+
+<!-- 4. Advantages -->
+<section class="section bg-gradient-accent"><div class="section-inner">
+<div class="section-header header-center"><div class="section-tag"><span>&#10022;</span> Advantages</div><h2>Four Reasons <span class="g-text">to Switch</span></h2><p>Why leading engineering teams are migrating to GstarCAD.</p></div>
+<div class="advantages-grid">
+<div class="advantage-block"><div class="num">01</div><h3>Unbeatable Value</h3><p>70% lower TCO. No subscription lock-in. Transparent pricing, perpetual licenses, free updates during version cycle.</p></div>
+<div class="advantage-block"><div class="num">02</div><h3>Zero Migration Friction</h3><p>Same UI, shortcuts, commands. LISP/VBA scripts run as-is. No retraining needed &mdash; productive from day one.</p></div>
+<div class="advantage-block"><div class="num">03</div><h3>Relentless Innovation</h3><p>Major release every year, 200+ improvements. AI-assisted drafting, cloud collaboration, next-gen 3D shipping now.</p></div>
+<div class="advantage-block"><div class="num">04</div><h3>Chinese R&amp;D, Global Standards</h3><p>R&amp;D in China, built for the world. Chinese docs, local support, compliant with domestic and international standards.</p></div></div></div></section>
+
+<!-- 5. Cases -->
+<section class="section bg-darker"><div class="section-inner">
+<div class="section-header header-center"><div class="section-tag"><span>&#10022;</span> Success Stories</div><h2>Trusted by <span class="g-text">Industry Leaders</span></h2><p>Real results from real teams who made the switch.</p></div>
+<div class="cases-grid">
+<div class="case-block"><div class="case-block-top"><div class="case-block-avatar" style="background:#1a1a2e;">&#127963;</div><div><h4>Leading Architecture Institute</h4><span>Architecture &amp; Construction</span></div></div><div class="case-block-body"><p>"200+ designers transitioned to GstarCAD with zero productivity loss. Annual software costs reduced by 70%."</p></div><div class="case-block-stats"><div><strong>200+</strong><span>Designers</span></div><div><strong>70%</strong><span>Cost Saved</span></div><div><strong>0</strong><span>Retraining</span></div></div></div>
+<div class="case-block"><div class="case-block-top"><div class="case-block-avatar" style="background:#0f3460;">&#9881;</div><div><h4>Heavy Machinery Group</h4><span>Mechanical Manufacturing</span></div></div><div class="case-block-body"><p>"Complex assembly files handled with ease. File load times improved 50% over our previous solution."</p></div><div class="case-block-stats"><div><strong>500+</strong><span>Part Library</span></div><div><strong>50%</strong><span>Faster Load</span></div><div><strong>98%</strong><span>Compatibility</span></div></div></div>
+<div class="case-block"><div class="case-block-top"><div class="case-block-avatar" style="background:#1a365d;">&#127959;</div><div><h4>Municipal Engineering Corp</h4><span>Civil Engineering</span></div></div><div class="case-block-body"><p>"300+ construction drawings for a metro project. Not a single crash during the entire project lifecycle."</p></div><div class="case-block-stats"><div><strong>300+</strong><span>Drawings</span></div><div><strong>0</strong><span>Crashes</span></div><div><strong>100%</strong><span>On-Time</span></div></div></div></div></div></section>
+
+<!-- 6. Reviews -->
+<section class="section bg-deep"><div class="section-inner">
+<div class="section-header header-center"><div class="section-tag"><span>&#10022;</span> Testimonials</div><h2>What Our <span class="g-text">Users Say</span></h2><p>Honest feedback from the global GstarCAD community.</p></div>
+<div class="reviews-grid">
+<div class="review-block"><div class="review-block-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-block-text">"Switching to GstarCAD was one of the best decisions we made. It felt like AutoCAD but at a third of the cost. Highly recommended for SMBs."</div><div class="review-block-author"><div class="review-block-avatar">&#128104;</div><div><strong>Zhang Wei</strong><small>Design Director</small></div></div></div>
+<div class="review-block"><div class="review-block-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-block-text">"The Mechanical edition is a game-changer. The standard parts library alone saved hundreds of hours. BOM generation is automatic and accurate."</div><div class="review-block-author"><div class="review-block-avatar">&#128105;</div><div><strong>Li Qiang</strong><small>Senior Engineer</small></div></div></div>
+<div class="review-block"><div class="review-block-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-block-text">"As a solo freelancer, GstarCAD gave me professional-grade tools without the enterprise price tag. Permanent license means predictable costs."</div><div class="review-block-author"><div class="review-block-avatar">&#128102;</div><div><strong>Mike Chen</strong><small>Freelance Designer</small></div></div></div></div></div></section>
+
+<!-- 7. News -->
+<section class="section bg-darker"><div class="section-inner">
+<div class="section-header header-center"><div class="section-tag"><span>&#10022;</span> Latest</div><h2>News &amp; <span class="g-text">Updates</span></h2><p>Stay current with product launches, events, and industry insights.</p></div>
+<div class="news-grid">
+<div class="news-block"><div class="news-block-img">&#128640;</div><div class="news-block-body"><div class="news-block-meta"><span class="news-block-cat">Product Launch</span><span class="news-block-date">Jun 12, 2026</span></div><h3>GstarCAD 2026 Released</h3><p>Brand-new UI, 40% faster rendering, AI-assisted drawing tools, enhanced cloud collaboration.</p><a href="#">Read more &rarr;</a></div></div>
+<div class="news-block"><div class="news-block-img">&#127758;</div><div class="news-block-body"><div class="news-block-meta"><span class="news-block-cat">Events</span><span class="news-block-date">May 28, 2026</span></div><h3>GstarCAD at BIM World 2026</h3><p>Next-gen BIM solutions showcased in Paris. 300+ enterprise visitors experienced GstarCAD live.</p><a href="#">Read more &rarr;</a></div></div>
+<div class="news-block"><div class="news-block-img">&#128216;</div><div class="news-block-body"><div class="news-block-meta"><span class="news-block-cat">Guide</span><span class="news-block-date">May 15, 2026</span></div><h3>AutoCAD to GstarCAD Migration Guide</h3><p>Step-by-step playbook. Migrate LISP scripts, transfer settings, onboard your team in under a week.</p><a href="#">Read more &rarr;</a></div></div></div></div></section>
+
+<!-- CTA -->
+<section class="cta-strip"><div class="section-inner">
+<h2>Ready to <span class="g-text">Upgrade Your CAD</span> Workflow?</h2><p>Join 500,000+ professionals. Start your free trial today &mdash; no credit card required.</p><div class="cta-btns"><a href="#" class="hero-btn-primary">Start Free Trial</a><a href="#" class="hero-btn-secondary">Talk to Sales</a></div></div></section>
+
+<!-- Footer -->
+<footer class="footer"><div class="footer-inner">
+<div class="footer-cols">
+<div class="footer-col footer-brand"><h3>Gstar<span>CAD</span></h3><p>Professional CAD software since 2009. Independently developed, globally trusted. 500K+ users in 90+ countries.</p><div class="footer-social"><a href="#">X</a><a href="#">in</a><a href="#">YT</a></div></div>
+<div class="footer-col"><h4>Products</h4><a href="#">GstarCAD</a><a href="#">Mechanical</a><a href="#">Architecture</a><a href="#">GstarCAD 365</a><a href="#">DWG FastView</a></div>
+<div class="footer-col"><h4>Support</h4><a href="#">Documentation</a><a href="#">Video Tutorials</a><a href="#">FAQ</a><a href="#">Community Forum</a></div>
+<div class="footer-col"><h4>Company</h4><a href="#">About Us</a><a href="#">Newsroom</a><a href="#">Events</a><a href="#">Partner Program</a></div></div>
+<div class="footer-bottom"><p>&copy; 2026 GstarCAD. All rights reserved. Privacy Policy &middot; Terms of Service</p></div></div></footer>
+
+</body></html>
